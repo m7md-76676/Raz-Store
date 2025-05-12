@@ -2,61 +2,136 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>اتصل بنا - متجر Raz</title>
   <style>
+    /* إعدادات عامة للصفحة */
     body {
+      font-family: 'Arial', sans-serif;
       margin: 0;
-      font-family: 'Tahoma', sans-serif;
-      background-color: #f0f0f0;
+      padding: 0;
+      background-color: #f8f8f8;
       direction: rtl;
     }
 
     header {
       background-color: #6a0dad;
       color: white;
-      padding: 15px 20px;
       text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 30px auto;
-      background-color: white;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      font-size: 30px;
+      position: relative;
     }
 
-    h2 {
+    /* إضافة الشعار */
+    .logo {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      width: 50px;  /* يمكنك تغيير الحجم حسب الرغبة */
+      height: auto;
+    }
+
+    /* زر القائمة الجانبية */
+    .menu-icon {
+      position: absolute;
+      left: 80px;
+      top: 20px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* تصميم شريط التنقل الجانبي */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      background-color: #580e9c;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+      box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar a {
+      padding: 15px 25px;
+      text-decoration: none;
+      font-size: 25px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #6a0dad;
+      transform: scale(1.1);
+    }
+
+    .sidebar .closebtn {
+      font-size: 36px;
+      color: white;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* تنسيق النموذج في صفحة "اتصل بنا" */
+    .contact-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 50px 20px;
+      flex-direction: column;
       text-align: center;
-      color: #6a0dad;
-      margin-bottom: 20px;
     }
 
-    input, textarea {
+    .contact-container h2 {
+      font-size: 28px;
+      color: #580e9c;
+    }
+
+    .contact-container form {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       width: 100%;
-      padding: 10px;
+      max-width: 600px;
+    }
+
+    .contact-container input,
+    .contact-container textarea {
+      width: 100%;
+      padding: 12px;
       margin: 10px 0;
       border-radius: 5px;
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+      font-size: 16px;
     }
 
-    button {
+    .contact-container textarea {
+      height: 150px;
+    }
+
+    .contact-container button {
       background-color: #6a0dad;
       color: white;
-      padding: 12px;
       border: none;
+      padding: 12px 20px;
       border-radius: 5px;
-      font-size: 16px;
       cursor: pointer;
-      width: 100%;
       transition: background-color 0.3s;
     }
 
-    button:hover {
+    .contact-container button:hover {
       background-color: #580e9c;
     }
 
@@ -68,28 +143,45 @@
       margin-top: 30px;
     }
 
-    .info {
-      text-align: center;
-      font-size: 16px;
-      margin-top: 20px;
+    /* تصميم الميديا: الاستجابة للأجهزة المختلفة */
+    @media (max-width: 768px) {
+      header {
+        font-size: 24px;
+      }
+
+      .contact-container {
+        padding: 30px 20px;
+      }
     }
   </style>
 </head>
 <body>
 
+  <!-- الهيدر -->
   <header>
+    <img src="images/logo.png" alt="شعار متجر Raz" class="logo">  <!-- هنا تضيف الشعار الخاص بك -->
     اتصل بنا - متجر Raz
+    <!-- زر القائمة الجانبية -->
+    <span class="menu-icon" onclick="openNav()">&#9776;</span>
   </header>
 
-  <div class="container">
-    <h2>نموذج الاتصال</h2>
-    <form onsubmit="submitForm(event)">
-      <input type="text" id="name" placeholder="الاسم الكامل" required>
-      <input type="email" id="email" placeholder="البريد الإلكتروني" required>
-      <input type="text" id="subject" placeholder="الموضوع" required>
-      <textarea id="message" placeholder="رسالتك..." rows="5" required></textarea>
-      
-      <button type="submit">إرسال الرسالة</button>
+  <!-- قائمة جانبية -->
+  <div id="mySidebar" class="sidebar">
+    <button class="closebtn" onclick="closeNav()">&times;</button>
+    <a href="index.html">الرئيسية</a>
+    <a href="products.html">المنتجات</a>
+    <a href="contact.html" class="active">اتصل بنا</a>
+    <a href="cart.html">السلة (<span id="cart-count">0</span>)</a>
+  </div>
+
+  <!-- محتوى صفحة اتصل بنا -->
+  <div class="contact-container">
+    <h2>تواصل معنا</h2>
+    <form action="submit_form.php" method="POST">
+      <input type="text" name="name" placeholder="اسمك الكامل" required>
+      <input type="email" name="email" placeholder="بريدك الإلكتروني" required>
+      <textarea name="message" placeholder="رسالتك" required></textarea>
+      <button type="submit">إرسال</button>
     </form>
   </div>
 
@@ -98,26 +190,34 @@
   </footer>
 
   <script>
-    function submitForm(event) {
-      event.preventDefault(); // منع إعادة تحميل الصفحة
+    // دالة لإضافة منتج إلى السلة
+    function addToCart(name, price) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({ name, price });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCount();
+      alert("تمت إضافة المنتج إلى السلة!");
+    }
 
-      // جمع البيانات من النموذج
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const subject = document.getElementById('subject').value;
-      const message = document.getElementById('message').value;
+    // دالة لتحديث عدد العناصر في السلة
+    function updateCartCount() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      document.getElementById("cart-count").textContent = cart.length;
+    }
 
-      // إرسال البيانات عبر وحدة التحكم (console) أو إرسالها إلى خادم عبر API
-      console.log('الاسم:', name);
-      console.log('البريد الإلكتروني:', email);
-      console.log('الموضوع:', subject);
-      console.log('الرسالة:', message);
+    // دالة لفتح القائمة الجانبية
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+    }
 
-      // رسالة تأكيد للمستخدم
-      alert('تم إرسال رسالتك بنجاح! شكراً للتواصل معنا.');
+    // دالة لإغلاق القائمة الجانبية
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+    }
 
-      // مسح الحقول بعد الإرسال
-      document.querySelector('form').reset();
+    // تحديث عدد العناصر في السلة عند تحميل الصفحة
+    window.onload = function() {
+      updateCartCount();
     }
   </script>
 
