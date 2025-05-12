@@ -3,12 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>متجر Raz</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
       font-family: Tahoma, sans-serif;
       margin: 0;
@@ -22,72 +17,6 @@
       padding: 20px;
       text-align: center;
       font-size: 28px;
-      position: relative;
-    }
-
-    .menu-icon {
-      position: absolute;
-      right: 20px;
-      top: 25px;
-      cursor: pointer;
-      width: 30px;
-      height: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      z-index: 1001;
-    }
-
-    .menu-icon div {
-      height: 4px;
-      background-color: white;
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-
-    .side-menu {
-      position: fixed;
-      top: 0;
-      right: -250px;
-      width: 250px;
-      height: 100%;
-      background-color: #580e9c;
-      display: flex;
-      flex-direction: column;
-      padding-top: 80px;
-      transition: right 0.4s ease;
-      z-index: 1000;
-    }
-
-    .side-menu a {
-      color: white;
-      padding: 15px 25px;
-      text-decoration: none;
-      border-bottom: 1px solid #6a0dad;
-      transition: background-color 0.3s;
-    }
-
-    .side-menu a:hover {
-      background-color: #6a0dad;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      display: none;
-      z-index: 999;
-    }
-
-    .side-menu.open {
-      right: 0;
-    }
-
-    .overlay.show {
-      display: block;
     }
 
     nav {
@@ -109,15 +38,6 @@
     nav a:hover {
       background-color: #6a0dad;
       transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-      nav {
-        display: none;
-      }
-      .menu-icon {
-        display: flex;
-      }
     }
 
     .container {
@@ -168,10 +88,6 @@
       background-color: #580e9c;
     }
 
-    section {
-      padding: 30px;
-    }
-
     footer {
       text-align: center;
       padding: 15px;
@@ -183,79 +99,49 @@
 </head>
 <body>
 
+  <!-- رأس الصفحة مع القوائم -->
   <header>
     متجر Raz
-    <div class="menu-icon" onclick="toggleMenu()">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
   </header>
 
-  <!-- قائمة الجوال الجانبية -->
-  <div class="side-menu" id="sideMenu">
-    <a href="#home">الرئيسية</a>
-    <a href="#about">عن المتجر</a>
-    <a href="#products">المنتجات</a>
+  <!-- قائمة التنقل -->
+  <nav>
+    <a href="index.html" class="active">الرئيسية</a>
+    <a href="about.html">عن المتجر</a>
+    <a href="products.html">المنتجات</a>
     <a href="contact.html">اتصل بنا</a>
     <a href="cart.html">السلة (<span id="cart-count">0</span>)</a>
-  </div>
-
-  <!-- خلفية مظللة عند فتح القائمة -->
-  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-  <!-- قائمة الكمبيوتر -->
-  <nav>
-    <a href="#home">الرئيسية</a>
-    <a href="#about">عن المتجر</a>
-    <a href="#products">المنتجات</a>
-    <a href="contact.html">اتصل بنا</a>
-    <a href="cart.html">السلة (<span id="cart-count-desktop">0</span>)</a>
   </nav>
 
-  <!-- محتوى الصفحة -->
-  <section id="about">
-    <h2>عن المتجر</h2>
-    <p>متجر Raz متخصص في بيع المنتجات التقنية بجودة عالية، وبأسعار منافسة، مع ضمان رضا العملاء.</p>
-  </section>
-
-  <section id="products">
-    <h2>المنتجات</h2>
-    <div class="container">
-      <div class="product">
-        <img src="images/headphones.jpg" alt="سماعات">
-        <h3>سماعات بلوتوث</h3>
-        <div class="price">
-          299
-          <img src="images/riyal-logo.png" alt="ريال سعودي">
-        </div>
-        <button onclick="addToCart('سماعات بلوتوث', 299)">أضف إلى السلة</button>
+  <!-- محتوى المنتجات -->
+  <div class="container">
+    <div class="product">
+      <img src="images/headphones.jpg" alt="سماعات">
+      <h3>سماعات بلوتوث</h3>
+      <div class="price">
+        299
+        <img src="images/riyal-logo.png" alt="ريال سعودي">
       </div>
-
-      <div class="product">
-        <img src="images/watch.jpg" alt="ساعة">
-        <h3>ساعة ذكية</h3>
-        <div class="price">
-          399
-          <img src="images/riyal-logo.png" alt="ريال سعودي">
-        </div>
-        <button onclick="addToCart('ساعة ذكية', 399)">أضف إلى السلة</button>
-      </div>
+      <button onclick="addToCart('سماعات بلوتوث', 299)">أضف إلى السلة</button>
     </div>
-  </section>
+
+    <div class="product">
+      <img src="images/watch.jpg" alt="ساعة">
+      <h3>ساعة ذكية</h3>
+      <div class="price">
+        399
+        <img src="images/riyal-logo.png" alt="ريال سعودي">
+      </div>
+      <button onclick="addToCart('ساعة ذكية', 399)">أضف إلى السلة</button>
+    </div>
+
+  </div>
 
   <footer>
     جميع الحقوق محفوظة &copy; 2025 متجر Raz
   </footer>
 
   <script>
-    function toggleMenu() {
-      const menu = document.getElementById("sideMenu");
-      const overlay = document.getElementById("overlay");
-      menu.classList.toggle("open");
-      overlay.classList.toggle("show");
-    }
-
     function addToCart(name, price) {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
       cart.push({ name, price });
@@ -267,10 +153,10 @@
     function updateCartCount() {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
       document.getElementById("cart-count").textContent = cart.length;
-      document.getElementById("cart-count-desktop").textContent = cart.length;
     }
 
-    window.onload = function () {
+    // تحديث عدد العناصر في السلة عند تحميل الصفحة
+    window.onload = function() {
       updateCartCount();
     }
   </script>
