@@ -1,0 +1,6 @@
+/* تأثير التركيز على الحقول */
+input:focus, select:focus, textarea:focus {
+  border-color: #4CAF50;  /* تغيير اللون عند التركيز */
+  outline: none;  /* إزالة الخطوط الخارجية */
+}
+

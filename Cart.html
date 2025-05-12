@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>سلة التسوق - متجر Raz</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Tahoma', sans-serif;
+      background-color: #f0f0f0;
+      direction: rtl;
+    }
+
+    header {
+      background-color: #6a0dad;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      color: #6a0dad;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: center;
+    }
+
+    table th {
+      background-color: #eee;
+    }
+
+    .total {
+      text-align: right;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #6a0dad;
+    }
+
+    button {
+      background-color: #6a0dad;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #580e9c;
+    }
+
+    .remove-btn {
+      background-color: #d9534f;
+      border: none;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      color: #999;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    سلة التسوق - متجر Raz
+  </header>
+
+  <div class="container">
+    <h2>محتويات السلة</h2>
+    <table id="cart-table">
+      <thead>
+        <tr>
+          <th>المنتج</th>
+          <th>السعر</th>
+          <th>حذف</th>
+        </tr>
+      </thead>
+      <tbody id="cart-body">
+        <!-- المنتجات ستُضاف هنا تلقائيًا -->
+      </tbody>
+    </table>
+
+    <div class="total" id="total-price">الإجمالي: 0 ﷼</div>
+
+    <button onclick="goToCheckout()">الانتقال إلى الدفع</button>
+  </div>
+
+  <footer>
+    جميع الحقوق محفوظة &copy; 2025 متجر Raz
+  </footer>
+
+  <script>
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const tbody = document.getElementById("cart-body");
+      const totalEl = document.getElementById("total-price");
+      tbody.innerHTML = "";
+
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const row = document.createElement("tr");
+
+        const nameCell = document.createElement("td");
+        nameCell.textContent = item.name;
+        row.appendChild(nameCell);
+
+        const priceCell = document.createElement("td");
+        priceCell.textContent = item.price + " ﷼";
+        total += item.price;
+        row.appendChild(priceCell);
+
+        const removeCell = document.createElement("td");
+        const btn = document.createElement("button");
+        btn.textContent = "حذف";
+        btn.className = "remove-btn";
+        btn.onclick = () => removeItem(index);
+        removeCell.appendChild(btn);
+        row.appendChild(removeCell);
+
+        tbody.appendChild(row);
+      });
+
+      totalEl.textContent = "الإجمالي: " + total + " ﷼";
+    }
+
+    function removeItem(index) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    }
+
+    function goToCheckout() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      if (cart.length === 0) {
+        alert("سلة التسوق فارغة!");
+        return;
+      }
+      window.location.href = "checkout.html";
+    }
+
+    window.onload = loadCart;
+  </script>
+
+</body>
+</html>

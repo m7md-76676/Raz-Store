@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>اتصل بنا - متجر Raz</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Tahoma', sans-serif;
+      background-color: #f0f0f0;
+      direction: rtl;
+    }
+
+    header {
+      background-color: #6a0dad;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      text-align: center;
+      color: #6a0dad;
+      margin-bottom: 20px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #6a0dad;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #580e9c;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      color: #999;
+      margin-top: 30px;
+    }
+
+    .info {
+      text-align: center;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    اتصل بنا - متجر Raz
+  </header>
+
+  <div class="container">
+    <h2>نموذج الاتصال</h2>
+    <form onsubmit="submitForm(event)">
+      <input type="text" id="name" placeholder="الاسم الكامل" required>
+      <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+      <input type="text" id="subject" placeholder="الموضوع" required>
+      <textarea id="message" placeholder="رسالتك..." rows="5" required></textarea>
+      
+      <button type="submit">إرسال الرسالة</button>
+    </form>
+  </div>
+
+  <footer>
+    جميع الحقوق محفوظة &copy; 2025 متجر Raz
+  </footer>
+
+  <script>
+    function submitForm(event) {
+      event.preventDefault(); // منع إعادة تحميل الصفحة
+
+      // جمع البيانات من النموذج
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+
+      // إرسال البيانات عبر وحدة التحكم (console) أو إرسالها إلى خادم عبر API
+      console.log('الاسم:', name);
+      console.log('البريد الإلكتروني:', email);
+      console.log('الموضوع:', subject);
+      console.log('الرسالة:', message);
+
+      // رسالة تأكيد للمستخدم
+      alert('تم إرسال رسالتك بنجاح! شكراً للتواصل معنا.');
+
+      // مسح الحقول بعد الإرسال
+      document.querySelector('form').reset();
+    }
+  </script>
+
+</body>
+</html>
