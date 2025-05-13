@@ -5,9 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>السلة - متجر Raz</title>
   <style>
-    /* إعدادات عامة للصفحة */
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       background-color: #f8f8f8;
@@ -23,29 +22,33 @@
       position: relative;
     }
 
-    /* زر القائمة الجانبية */
-    .menu-icon {
+    .logo {
       position: absolute;
       left: 20px;
+      top: 20px;
+      width: 50px;
+      height: auto;
+    }
+
+    .menu-icon {
+      position: absolute;
+      left: 80px;
       top: 20px;
       font-size: 30px;
       color: white;
       cursor: pointer;
     }
 
-    /* تصميم شريط التنقل الجانبي */
     .sidebar {
       height: 100%;
       width: 0;
       position: fixed;
-      z-index: 1;
       top: 0;
       right: 0;
       background-color: #580e9c;
       overflow-x: hidden;
       transition: 0.5s;
       padding-top: 60px;
-      box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
     }
 
     .sidebar a {
@@ -59,83 +62,74 @@
 
     .sidebar a:hover {
       background-color: #6a0dad;
-      transform: scale(1.1);
     }
 
     .sidebar .closebtn {
       font-size: 36px;
-      color: white;
       position: absolute;
       top: 10px;
       left: 10px;
       background: none;
       border: none;
+      color: white;
       cursor: pointer;
     }
 
-    /* تصميم السلة */
     .cart-container {
-      padding: 30px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      max-width: 1200px;
-      margin: 20px auto;
-    }
-
-    .cart-item {
-      background-color: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: transform 0.2s ease;
+      justify-content: center;
+      padding: 20px;
+      flex-direction: column;
+      text-align: center;
     }
 
-    .cart-item:hover {
-      transform: scale(1.02);
+    .cart-container table {
+      width: 100%;
+      max-width: 800px;
+      margin: 20px 0;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
-    .cart-item img {
-      max-width: 80px;
-      border-radius: 8px;
-      margin-left: 15px;
+    .cart-container table th, .cart-container table td {
+      padding: 15px;
+      text-align: center;
+      border: 1px solid #ddd;
     }
 
-    .cart-item .details {
-      flex-grow: 1;
-      margin-right: 20px;
+    .cart-container table th {
+      background-color: #580e9c;
+      color: white;
     }
 
-    .cart-item h4 {
-      margin: 0;
-      font-size: 18px;
+    .cart-container .total {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #580e9c;
     }
 
-    .cart-item .price {
-      font-size: 16px;
-      color: #6a0dad;
-      font-weight: bold;
-    }
-
-    .cart-item button {
+    .cart-container button {
       background-color: #6a0dad;
       color: white;
       border: none;
-      padding: 10px 15px;
+      padding: 12px 20px;
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s;
     }
 
-    .cart-item button:hover {
+    .cart-container button:hover {
       background-color: #580e9c;
     }
 
-    .cart-item button:active {
-      transform: scale(0.98);
+    .payment-methods {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    .payment-methods input {
+      margin: 10px;
     }
 
     footer {
@@ -146,34 +140,18 @@
       margin-top: 30px;
     }
 
-    /* تصميم الميديا: الاستجابة للأجهزة المختلفة */
     @media (max-width: 768px) {
       header {
         font-size: 24px;
-      }
-
-      .cart-container {
-        grid-template-columns: 1fr;
-      }
-
-      .cart-item {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .cart-item img {
-        margin-left: 0;
-        margin-bottom: 15px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- الهيدر -->
   <header>
+    <img src="images/logo.png" alt="شعار متجر Raz" class="logo">
     السلة - متجر Raz
-    <!-- زر القائمة الجانبية -->
     <span class="menu-icon" onclick="openNav()">&#9776;</span>
   </header>
 
@@ -187,8 +165,40 @@
   </div>
 
   <!-- محتوى السلة -->
-  <div class="cart-container" id="cart-container">
-    <!-- سيتم تحميل العناصر في السلة هنا باستخدام JavaScript -->
+  <div class="cart-container">
+    <h2>محتويات السلة</h2>
+    <table id="cart-table">
+      <thead>
+        <tr>
+          <th>المنتج</th>
+          <th>السعر</th>
+          <th>الكمية</th>
+          <th>الإجمالي</th>
+          <th>إجراء</th>
+        </tr>
+      </thead>
+      <tbody id="cart-items">
+        <!-- محتويات السلة سيتم إضافتها هنا بواسطة JavaScript -->
+      </tbody>
+    </table>
+
+    <div class="total">
+      <p>الإجمالي: <span id="total-price">0</span> ريال سعودي</p>
+      <button onclick="showPaymentOptions()">إتمام الشراء</button>
+    </div>
+
+    <!-- خيارات الدفع -->
+    <div id="payment-options" class="payment-methods" style="display: none;">
+      <h3>اختر طريقة الدفع</h3>
+      <input type="radio" id="credit-card" name="payment-method" value="credit-card">
+      <label for="credit-card">بطاقة ائتمان</label><br>
+      <input type="radio" id="paypal" name="payment-method" value="paypal">
+      <label for="paypal">باي بال</label><br>
+      <input type="radio" id="cash-on-delivery" name="payment-method" value="cash-on-delivery">
+      <label for="cash-on-delivery">الدفع عند الاستلام</label><br>
+
+      <button onclick="completePurchase()">إتمام الدفع</button>
+    </div>
   </div>
 
   <footer>
@@ -196,13 +206,23 @@
   </footer>
 
   <script>
-    // دالة لإضافة منتج إلى السلة
+    // دالة لفتح القائمة الجانبية
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+    }
+
+    // دالة لإغلاق القائمة الجانبية
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+    }
+
+    // دالة لإضافة منتجات إلى السلة
     function addToCart(name, price) {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart.push({ name, price });
+      cart.push({ name, price, quantity: 1 });
       localStorage.setItem("cart", JSON.stringify(cart));
       updateCartCount();
-      alert("تمت إضافة المنتج إلى السلة!");
+      updateCartTable();
     }
 
     // دالة لتحديث عدد العناصر في السلة
@@ -211,54 +231,71 @@
       document.getElementById("cart-count").textContent = cart.length;
     }
 
-    // دالة لعرض العناصر في السلة
-    function displayCartItems() {
+    // دالة لتحديث محتويات السلة في الجدول
+    function updateCartTable() {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const cartContainer = document.getElementById("cart-container");
+      let cartItemsContainer = document.getElementById("cart-items");
+      cartItemsContainer.innerHTML = '';  // مسح محتويات السلة السابقة
+      let totalPrice = 0;
 
-      if (cart.length === 0) {
-        cartContainer.innerHTML = "<p>السلة فارغة</p>";
-      } else {
-        cartContainer.innerHTML = "";
-        cart.forEach(item => {
-          const cartItem = document.createElement("div");
-          cartItem.classList.add("cart-item");
-          cartItem.innerHTML = `
-            <img src="images/${item.name.toLowerCase().replace(/\s+/g, '-')}.jpg" alt="${item.name}">
-            <div class="details">
-              <h4>${item.name}</h4>
-              <p class="price">${item.price} <img src="images/riyal-logo.png" alt="ريال سعودي"></p>
-            </div>
-            <button onclick="removeFromCart('${item.name}')">إزالة</button>
-          `;
-          cartContainer.appendChild(cartItem);
-        });
+      cart.forEach((item, index) => {
+        totalPrice += item.price * item.quantity;
+        let row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>${item.price} ريال سعودي</td>
+          <td><button onclick="changeQuantity(${index}, -1)">-</button> ${item.quantity} <button onclick="changeQuantity(${index}, 1)">+</button></td>
+          <td>${item.price * item.quantity} ريال سعودي</td>
+          <td><button onclick="removeFromCart(${index})">حذف</button></td>
+        `;
+        cartItemsContainer.appendChild(row);
+      });
+
+      document.getElementById("total-price").textContent = totalPrice;
+    }
+
+    // دالة لتغيير الكمية
+    function changeQuantity(index, change) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      if (cart[index].quantity + change > 0) {
+        cart[index].quantity += change;
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartTable();
       }
     }
 
-    // دالة لإزالة منتج من السلة
-    function removeFromCart(productName) {
+    // دالة لحذف منتج من السلة
+    function removeFromCart(index) {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart = cart.filter(item => item.name !== productName);
+      cart.splice(index, 1);
       localStorage.setItem("cart", JSON.stringify(cart));
-      displayCartItems();
       updateCartCount();
+      updateCartTable();
     }
 
-    // تحديث عدد العناصر في السلة عند تحميل الصفحة
+    // دالة لإظهار خيارات الدفع
+    function showPaymentOptions() {
+      document.getElementById("payment-options").style.display = "block";
+    }
+
+    // دالة لإتمام الدفع
+    function completePurchase() {
+      const paymentMethod = document.querySelector('input[name="payment-method"]:checked');
+      if (!paymentMethod) {
+        alert("يرجى اختيار طريقة الدفع.");
+        return;
+      }
+
+      alert(`تم إتمام الدفع باستخدام: ${paymentMethod.value}`);
+      localStorage.removeItem("cart");  // تفريغ السلة بعد الدفع
+      updateCartCount();
+      updateCartTable();
+    }
+
+    // تحديث عدد العناصر في السلة والجدول عند تحميل الصفحة
     window.onload = function() {
       updateCartCount();
-      displayCartItems();
-    }
-
-    // فتح القائمة الجانبية
-    function openNav() {
-      document.getElementById("mySidebar").style.width = "250px";
-    }
-
-    // إغلاق القائمة الجانبية
-    function closeNav() {
-      document.getElementById("mySidebar").style.width = "0";
+      updateCartTable();
     }
   </script>
 
